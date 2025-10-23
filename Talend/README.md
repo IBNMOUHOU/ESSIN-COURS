@@ -1,88 +1,99 @@
-Projet ETL Talend : Flux de Données Auteurs & Livres
-Ce projet contient les fichiers nécessaires pour configurer un environnement de base de données MySQL via Docker et exécuter deux Jobs ETL (Extraction, Transformation, Chargement) avec Talend Open Studio.
+# 🚀 Projet ETL Talend ESSIN — Gestion et Intégration de Livres & Auteurs
 
-🛠️ Configuration de l'Environnement (Docker)
-Le fichier docker-compose.yml crée le service MySQL, expose le port 3306, et exécute trois scripts SQL pour initialiser toutes les bases de données requises.
+## 🧩 Description du Projet
 
-Fichier : docker-compose.yml
-YAML
+Ce projet a été réalisé dans le cadre du module **ETL / Data Integration** à l'ESSIN. Il illustre un **processus d'intégration de données (ETL)** complet utilisant **Talend Open Studio** et un environnement de base de données **MySQL conteneurisé par Docker**.
 
-version: '3.8'
-services:
-  mysql_db:
-    image: mysql:8.0 
-    container_name: mysql_db 
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: mysecret
-    volumes:
-      # Scripts d'initialisation pour créer les bases et tables
-      - ./gestion_livres_init.sql:/docker-entrypoint-initdb.d/gestion_livres_init.sql
-      - ./bookdb_init.sql:/docker-entrypoint-initdb.d/bookdb_init.sql
-      - ./dwh_init.sql:/docker-entrypoint-initdb.d/dwh_init.sql # Ajout du script DWH
-    restart: unless-stopped
-🚀 Lancement
-Pour démarrer le conteneur et créer toutes les bases (bookdb, gestion_livres, dwh_bookdb), exécutez dans votre terminal :
+L'objectif est de simuler la migration et l'enrichissement de données d'une base opérationnelle vers un **Data Warehouse (DWH)** :
 
-Bash
+1.  **Fusion (Jointure) & Export :** Consolider les données Auteurs/Livres de la base source et exporter le résultat en CSV.
+2.  **Enrichissement & Chargement DWH :** Transformer la dimension Auteur (ajout d'une colonne `ETAT`) et la charger dans la table `auteur_DIM` de l'entrepôt.
 
+-----
+
+## 🧱 Architecture du Projet
+
+Le projet est structuré pour une configuration rapide et la réutilisation des scripts d'initialisation :
+
+```
+ESSIN-COURS/
+├── Talend/
+│   ├── docker-compose.yml        # Configuration Docker (MySQL:3306)
+│   ├── bookdb_init.sql           # Script d'initialisation de la base source (bookdb)
+│   ├── dwh_init.sql              # Script d'initialisation du Data Warehouse (dwh_bookdb)
+│   ├── gestion_livres_init.sql   # Script d'initialisation de la base legacy
+│   ├── LivresAuteur.csv          # Fichier de sortie du Job de jointure (Exemple)
+│   └── ... (Fichiers d'export des Jobs Talend)
+└── README.md
+```
+
+-----
+
+## 🐳 Lancer le Projet avec Docker
+
+L'environnement de base de données est crucial. Toutes les bases (`bookdb`, `gestion_livres`, `dwh_bookdb`) sont créées automatiquement au démarrage du conteneur.
+
+### 1️⃣ Démarrer MySQL
+
+Depuis le répertoire contenant le `docker-compose.yml`, exécutez :
+
+```bash
 docker compose up -d
-📄 Scripts SQL d'Initialisation
-1. Source OLTP (bookdb)
-Le fichier bookdb_init.sql crée la base de données source contenant les tables auteur et livre.
+```
 
-SQL
+**Paramètres de connexion :**
 
--- Création de la base de données bookdb
-CREATE DATABASE IF NOT EXISTS `bookdb`;
-USE `bookdb`;
+  * **Hôte :** `localhost`
+  * **Port :** `3306`
+  * **Utilisateur/Mot de passe (ROOT) :** `root` / `mysecret`
 
--- Définition de la table auteur...
--- Définition de la table livre...
--- Insertion de données...
-2. Cible DWH (dwh_bookdb)
-Le fichier dwh_init.sql crée l'entrepôt de données et la table de dimension auteur_DIM utilisée pour le Chargement (L).
+### 2️⃣ Vérifier l'État des Bases de Données
 
-SQL
+Confirmez que le service est actif et que la base cible (`dwh_bookdb`) existe :
 
--- Création de la base de données DWH
-CREATE DATABASE IF NOT EXISTS `dwh_bookdb`;
-USE `dwh_bookdb`;
+```bash
+# Vérifier l'état du conteneur
+docker ps
 
--- Table auteur_DIM incluant la future colonne enrichie 'ETAT'
-CREATE TABLE `auteur_DIM` (
-    `NUMERO_A` INT(10) UNSIGNED NOT NULL,
-    `NOM` VARCHAR(450) DEFAULT NULL,
-    -- ... autres colonnes
-    `ETAT` VARCHAR(450) DEFAULT NULL, -- Colonne pour la donnée transformée
-    PRIMARY KEY (`NUMERO_A`)
-);
-💻 Logique ETL (Talend)
-Deux Jobs principaux ont été construits pour le projet :
+# Lister les bases de données (Mot de passe : mysecret)
+docker exec -it mysql_db mysql -u root --password=mysecret -e "SHOW DATABASES;"
+```
 
-Job 1 : Fusion et Export CSV
-Ce Job effectue une jointure des données de bookdb et les exporte :
+La sortie doit inclure **`bookdb`**, **`gestion_livres`**, et **`dwh_bookdb`**.
 
-Composants : tMysqlInput (livre) -> tMap -> tFileOutputDelimited.
+-----
 
-Transformation (tMap) : Jointure (Inner Join) entre la table livre (Main) et la table auteur (Lookup) sur NUMERO_A.
+## ⚙️ Exécution des Jobs Talend
 
-Calcul du Nom Complet : La colonne de sortie est calculée via l'expression :
+Les Jobs sont conçus pour être exécutés séquentiellement pour observer le pipeline.
 
-Java
+### 1\. Importer les Jobs
 
-row2.PRENOM + " " + row2.NOM 
-// row2 fait référence au flux de données de la table auteur (Lookup)
-Job 2 : Enrichissement et Chargement DWH
-Ce Job lit les auteurs, les enrichit, et charge le résultat dans le Data Warehouse dwh_bookdb.
+1.  Ouvrir **Talend Open Studio**.
+2.  Aller dans `File` → `Import Items`.
+3.  Importer les fichiers `.zip` des Jobs (ou reconstruire les Jobs à partir des schémas de connexion).
 
-Composants : tMysqlInput (bookdb.auteur) -> tMap -> tMysqlOutput (dwh_bookdb.auteur_DIM).
+### 2\. Jobs Clés et Logique ETL
 
-Enrichissement (tMap) : Création de la colonne ETAT via une expression conditionnelle :
+| Nom du Job | Type d'Opération | Logique de Transformation Clé |
+| :--- | :--- | :--- |
+| `Join_Export_Tables_CSV` | **E + T + Export** | Jointure (`Inner Join`) entre `livre` et `auteur` sur `NUMERO_A`. |
+| `Load_DWH_Auteur` | **E + T + L (DWH)** | Enrichissement de la colonne `ETAT` via `tMap` : `row1.NUMERO_A > 5 ? "Auteur récent" : "Auteur ancien"`. |
 
-Java
+### 3\. Résultat et Validation
 
-row1.NUMERO_A > 5 ? "Auteur récent" : "Auteur ancien"
-// Si l'ID est supérieur à 5, l'auteur est marqué comme "récent".
-Chargement (tMysqlOutput) : Configuré pour Drop table if exists and create (supprimer et recréer la table) afin de garantir une structure propre dans le DWH avant l'insertion des données enrichies (Insert).
+Après l'exécution du Job `Load_DWH_Auteur`, vous pouvez valider le contenu de la table enrichie dans le DWH :
+
+```bash
+docker exec -it mysql_db mysql -u root --password=mysecret -e "SELECT NUMERO_A, NOM, ETAT FROM dwh_bookdb.auteur_DIM LIMIT 5;"
+```
+
+-----
+
+## 👨‍💻 Auteur
+
+**IBN MOUHOU Yassine**
+
+🎓 **Étudiant en Master Data Driven Analyst — ESSIN Paris**
+
+💡 Projet réalisé dans le cadre du module Data / Talend.
