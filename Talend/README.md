@@ -1,9 +1,3 @@
-J'ai pris le `README` que vous avez fourni et l'ai adapté pour qu'il corresponde précisément aux discussions que nous avons eues (notamment la structure des jobs et la méthode de lancement/vérification Docker). J'ai également amélioré la visibilité du code et des points clés.
-
-Voici le `README.md` final et complet :
-
------
-
 # 🚀 Projet ETL Talend ESSIN — Gestion et Intégration de Livres & Auteurs
 
 ## 🧩 Description du Projet
