@@ -23,6 +23,7 @@ ESSIN-COURS/
 │   ├── dwh_init.sql              # Script d'initialisation du Data Warehouse (dwh_bookdb)
 │   ├── gestion_livres_init.sql   # Script d'initialisation de la base legacy
 │   ├── LivresAuteur.csv          # Fichier de sortie du Job de jointure (Exemple)
+|   ├── 
 │   └── ... (Fichiers d'export des Jobs Talend)
 └── README.md
 ```
