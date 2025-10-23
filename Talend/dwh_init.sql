@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS `dwh_bookdb` DEFAULT CHARACTER SET utf8;
+USE `dwh_bookdb`;
+
+-- Table `auteur_DIM` pour le Data Warehouse
+DROP TABLE IF EXISTS `auteur_DIM`;
+CREATE TABLE `auteur_DIM` (
+    `NUMERO_A` INT(10) UNSIGNED NOT NULL,
+    `NOM` VARCHAR(450) DEFAULT NULL,
+    `PRENOM` VARCHAR(450) DEFAULT NULL,
+    `DOMICILE` VARCHAR(450) DEFAULT NULL,
+    `ETAT` VARCHAR(450) DEFAULT NULL, -- Colonne pour la donnée transformée
+    PRIMARY KEY (`NUMERO_A`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

@@ -1,0 +1,21 @@
+NUMERO_L;TITRE;PRIX;DOMICILE;AuteurFullName
+1;Data Engineering for Dummies;19.99;New York;Mr/Mma John Smith
+2;Practical Data Engineering;29.99;San Francisco;Mr/Mma Emily Johnson
+3;Mastering Data Engineering;34.99;Madrid;Mr/Mma Miguel Garcia
+4;Advanced Techniques in Data Engineering;39.99;London;Mr/Mma Jessica Brown
+5;Big Data Infrastructure;49.99;Beijing;Mr/Mma Wei Chen
+6;Data Pipelines and ETL Processing;24.99;Paris;Mr/Mma Marie Dubois
+7;Data Science Essentials;29.99;Seoul;Mr/Mma Seong Kim
+8;Machine Learning in Practice;39.99;Berlin;Mr/Mma Hans MÃ?ller
+9;Cloud Data Solutions;44.99;Rome;Mr/Mma Marco Rossi
+10;Data Governance and Compliance;34.99;Tokyo;Mr/Mma Takashi Sato
+11;Data Warehousing Fundamentals;29.99;New York;Mr/Mma John Smith
+12;Real-time Analytics;49.99;San Francisco;Mr/Mma Emily Johnson
+13;Data Quality Management;39.99;Madrid;Mr/Mma Miguel Garcia
+14;Data Mining Techniques;34.99;London;Mr/Mma Jessica Brown
+15;Introduction to Hadoop;29.99;Beijing;Mr/Mma Wei Chen
+16;Spark in Action;49.99;Paris;Mr/Mma Marie Dubois
+17;Python for Data Analysis;39.99;Seoul;Mr/Mma Seong Kim
+18;R Programming for Data Science;34.99;Berlin;Mr/Mma Hans MÃ?ller
+19;SQL Mastery;29.99;Rome;Mr/Mma Marco Rossi
+20;NoSQL Databases;49.99;Tokyo;Mr/Mma Takashi Sato

@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  mysql_db:
+    image: mysql:8.0 
+    container_name: mysql_db 
+    ports:
+      - "3306:3306"
+    environment:
+      # L'ajout d'une base ne nécessite pas de modifier cette ligne
+      MYSQL_ROOT_PASSWORD: mysecret
+      MYSQL_DATABASE: gestion_livres
+    volumes:
+      # 1. Le script (gestion_livres)
+      - ./gestion_livres_init.sql:/docker-entrypoint-initdb.d/gestion_livres_init.sql
+      # 2. script (bookdb)
+      - ./bookdb_init.sql:/docker-entrypoint-initdb.d/bookdb_init.sql
+    restart: unless-stopped
+
+# La définition du réseau doit apparaître UNE SEULE FOIS et au même niveau que 'services'
+networks:
+  mysql_network:
+    driver: bridge

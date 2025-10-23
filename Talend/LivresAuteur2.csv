@@ -1,0 +1,11 @@
+NUMERO_A,NOM,PRENOM,ETAT_AUTEUR,FullName,DOMICILE
+1,Smith,John,Auteur ancien,Mr/Mma John Smith,New York
+2,Johnson,Emily,Auteur ancien,Mr/Mma Emily Johnson,San Francisco
+3,Garcia,Miguel,Auteur ancien,Mr/Mma Miguel Garcia,Madrid
+4,Brown,Jessica,Auteur ancien,Mr/Mma Jessica Brown,London
+5,Chen,Wei,Auteur ancien,Mr/Mma Wei Chen,Beijing
+6,Dubois,Marie,Auteur récent,Mr/Mma Marie Dubois,Paris
+7,Kim,Seong,Auteur récent,Mr/Mma Seong Kim,Seoul
+8,MÃ?ller,Hans,Auteur récent,Mr/Mma Hans MÃ?ller,Berlin
+9,Rossi,Marco,Auteur récent,Mr/Mma Marco Rossi,Rome
+10,Sato,Takashi,Auteur récent,Mr/Mma Takashi Sato,Tokyo
