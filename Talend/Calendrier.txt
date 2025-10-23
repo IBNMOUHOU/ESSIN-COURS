@@ -1,0 +1,11 @@
+DATE_EMPRUNT,DateKey,Day,DayOfWeek,DayOfMonth,DayOfYear,WeekOfYear,Month,MonthName,Quarter,Year,IsWeekend,WeekOfMonth
+10-01-2025,20250110,10,6,10,10,2,1,janvier,1,2025,false,false
+12-01-2025,20250112,12,1,12,12,2,1,janvier,1,2025,false,true
+05-02-2025,20250205,5,4,5,36,6,2,février,1,2025,false,false
+08-02-2025,20250208,8,7,8,39,6,2,février,1,2025,true,true
+01-03-2025,20250301,1,7,1,60,9,3,mars,2,2025,true,true
+15-03-2025,20250315,15,7,15,74,11,3,mars,2,2025,true,true
+20-03-2025,20250320,20,5,20,79,12,3,mars,2,2025,false,false
+10-04-2025,20250410,10,5,10,100,15,4,avril,2,2025,false,false
+15-04-2025,20250415,15,3,15,105,16,4,avril,2,2025,false,false
+01-05-2025,20250501,1,5,1,121,18,5,mai,2,2025,false,false
