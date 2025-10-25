@@ -36,7 +36,7 @@ L'environnement de base de données est crucial. Toutes les bases (`bookdb`, `ge
 
 ### 1️⃣ Démarrer MySQL
 
-Depuis le répertoire contenant le `docker-compose.yml`, exécutez :
+Depuis le répertoire contenant le `docker-compose.yml`, exécutez :    
 
 ```bash
 docker compose up -d
